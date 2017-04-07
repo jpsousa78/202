@@ -96,7 +96,7 @@ void delete2 (struct node *from) {
 	free (removida);
 }
 
-void troca (struct node* from, struct node** to){
+void troca (struct node* from, struct node* to){
 	char aux1[3];
 	if (from->carta[0] == '1'){
 	        aux1[0] = '1';
@@ -107,7 +107,7 @@ void troca (struct node* from, struct node** to){
 	        aux1[0] = from->carta[0];
 	        aux1[1] = from->naipe;
 	}
-	add(aux1, *to);
+	add(aux1, to);
 	delete2(from);
 }
  
@@ -177,22 +177,22 @@ int full(){
   else return 0;
 }
 
-//void check_A(struct node *check){
-//  if (check->carta == 'A'){
-//    if (check->naipe == 'P'){
-//      troca(check, S1);
-//    }
-//    else if (check->naipe == 'C'){
-//      troca(check, S2);
-//    }
-//    else if (check->naipe == 'E'){
-//      troca(check, S3);
-//    }
-//    else if (check->naipe == 'O'){
-//      troca(check, S4);
-//    }
-//  }
-//}
+void check_A(struct node *check){
+  if (check->carta[0] == 'A'){
+    if (check->naipe == 'P'){
+      troca(check, S1);
+    }
+    else if (check->naipe == 'C'){
+      troca(check, S2);
+    }
+    else if (check->naipe == 'E'){
+      troca(check, S3);
+    }
+    else if (check->naipe == 'O'){
+      troca(check, S4);
+    }
+  }
+}
  
 int main (){
     cria_pilha(&D); cria_pilha(&D2); cria_pilha(&J1); cria_pilha(&J12); cria_pilha(&J2);
@@ -207,19 +207,18 @@ int main (){
   
     recebe_baralho(&E);
     display(E);
-    troca(E, &D);
+    troca(E, D);
     display(E);
     display(D);
     
-//    while (!(full())){
-//      if (count(D1) == 0){
-//	troca(D1, D2);
-//	troca(E, D1);
-//	check_A(D1);
-//      }
+    //while (!(full())){
+      //if (count(D) == 0){
+        //troca(D, D2);
+        //troca(E, D);
+        //check_A(D);
+      //}
       
-      
-//    }
+    //}
     
     return 0;
 }
