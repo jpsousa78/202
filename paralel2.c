@@ -111,12 +111,6 @@ void troca (struct node* from, struct node* to){
 	delete2(from);
 }
  
-//void distribui_baralho(){
-//  int i;
-//  for (i = 0, i<28, i++){
-    
-//  }
-//}
  
 //Mudada por causa do nó cabeça
 void  display(struct node *r)
@@ -170,6 +164,31 @@ int count(struct node *n)
     return c;
 }
 
+void distribui_baralho(){
+    if (count(J12)<1){
+        troca(E,J12);
+    }
+    if (count(J22)<2){
+        troca(E,J22);
+    }
+    if (count(J32)<3){
+        troca(E,J32);
+    }
+    if (count(J42)<4){
+        troca(E,J42);
+    }
+    if (count(J52)<5){
+        troca(E,J52);
+    }
+    if (count(J62)<6){
+        troca(E,J62);
+    }
+    if (count(J72)<7){
+        troca(E,J72);
+    }
+    distribui_baralho();
+}
+
 int full(){
   if (count(S1) == 13 && count(S2) == 13 && count(S3) == 13 && count(S4) == 13){
     return 1;
@@ -206,19 +225,20 @@ int main (){
     //for(i = 0; i < 3; i++){
   
     recebe_baralho(&E);
+    distribui_baralho();
     display(E);
     troca(E, D);
     display(E);
     display(D);
     
-    //while (!(full())){
-      //if (count(D) == 0){
-        //troca(D, D2);
-        //troca(E, D);
-        //check_A(D);
-      //}
+    while (!(full())){
+      if (count(D) == 0){
+        troca(D, D2);
+        troca(E, D);
+        check_A(D);
+      }
       
-    //}
+    }
     
     return 0;
 }
