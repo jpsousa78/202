@@ -21,28 +21,36 @@ void add(char str[3], struct node* to)
         temp->carta[0] = str[0];
         temp->naipe = str[1];
     }
-    if (to== NULL)
+
+//Atualizado para lidar com o nó cabeça
+
+    if (to->next== NULL)
     {
-    to=temp;
-    to->next=NULL;
+    to->next=temp;
+    to->next->next=NULL;
     }
     else
     {
-    temp->next=to;
-    to=temp;
+    temp->next=to->next;
+    to->next=temp;
     }
 }
 
+//Mudado pra lidar com to como **
 void recebe_baralho(struct node** to){
 	struct node vazio;
-	to = (struct node *)malloc(sizeof(struct node));
+	*to = (struct node *)malloc(sizeof(struct node));
+
+//Setado como NULL por motivos de segurança
+
+    (*to)->next = NULL;
 	int j;
 	char str[3];
-	to = head;
+
 	for(j = 0; j < 3; j++){
 	
 		scanf("%s", str);
-		add(str, to);
+		add(str, *to);
 	}
 }
 
@@ -72,75 +80,77 @@ void recebe_baralho(struct node** to){
 //	return 0;
 //}
 
-void delete2 (struct node **from) {
+
+//Mudada por causa do nó cabeça
+void delete2 (struct node *from) {
 	struct node *removida;
-	removida = *from;
-	*from = removida->next;
+	removida = from->next;
+	from->next = removida->next;
 	free (removida);
 }
 
 void troca (struct node* from, struct node* to){
-	char aux1[3], k;
-	k = '1';
-//	printf("4\n");
-	if (from->carta[0] == k){
-		printf("5\n");
+	char aux1[3];
+	if (from->next->carta[0] == '1'){
 	        aux1[0] = '1';
 	        aux1[1] = '0';
-	        aux1[2] = from->naipe;
+	        aux1[2] = from->next->naipe;
 	}
 	else {
-		printf("6\n");
-	        aux1[0] = from->carta[0];
-	        aux1[1] = from->naipe;
+	        aux1[0] = from->next->carta[0];
+	        aux1[1] = from->next->naipe;
 	}
-	head = to;
-	add(aux1);
-	printf("ok");
+
+	add(aux1, to);
 	delete2(from);
 }
  
+
+//Mudada por causa do nó cabeça
 void  display(struct node *r)
 {
-    r=head;
-    if(r==NULL)
+
+    if(r->next==NULL)
     {
     return;
     }
-    while(r!=NULL)
+    while(r->next!=NULL)
     {
       if (r->carta[0] != '1'){
-	printf("%c%c\n",r->carta[0],r->naipe);
+	printf("%c%c\n",r->next->carta[0],r->next->naipe);
       }
       else{
-	printf("%c%c%c\n",r->carta[0],r->carta[1],r->naipe);
+	printf("%c%c%c\n",r->next->carta[0],r->next->carta[1],r->next->naipe);
       }
     r=r->next;
     }
 }
 
+
+//Mudada por causa do nó cabeça
 void  display_last(struct node *r)
 {
-    r=head;
-    if(r==NULL)
+
+    if(r->next==NULL)
     {
     return;
     }
-    if (r->carta[0] != '1'){
-      printf("%c%c\n",r->carta[0],r->naipe);
+    if (r->next->carta[0] != '1'){
+      printf("%c%c\n",r->next->carta[0],r->next->naipe);
     }
     else{
-      printf("%c%c%c\n",r->carta[0],r->carta[1],r->naipe);
+      printf("%c%c%c\n",r->next->carta[0],r->next->carta[1],r->next->naipe);
     }
 }
  
  
-int count()
+//Mudada por causa do nó cabeça
+int count(struct node *n)
 {
-    struct node *n;
+
     int c=0;
-    n=head;
-    while(n!=NULL)
+
+    while(n->next!=NULL)
     {
     n=n->next;
     c++;
@@ -156,10 +166,11 @@ int main (){
     struct node *E, *D, *J1, *J2, *J3, *J4, *J5, *J6, *J7;
     struct node *S1, *S2, *S3, *S4;
     E=NULL;
-    recebe_baralho(E);
+    recebe_baralho(&E);
     display(E);
     //display_last(E);
-    delete2(&E);
-    //troca(head, D);	
+    delete2(E);
+    //troca(head, D);
+    display(E);
     return 0;
 }
