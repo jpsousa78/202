@@ -195,8 +195,6 @@ int full(){
 //}
  
 int main (){
-//struct node *D2, *J1, *J12, *J2, *J22, *J3, *J32, *J4, *J42, *J5, *J52, *J6, *J62, *J7, *J72;
-//struct node *E, *D, *S1, *S2, *S3, *S4; //S1 = Paus, S2 = Copas, S3 = Espadas, S4 = Ouros
     cria_pilha(&D); cria_pilha(&D2); cria_pilha(&J1); cria_pilha(&J12); cria_pilha(&J2);
     cria_pilha(&J22); cria_pilha(&J3); cria_pilha(&J32); cria_pilha(&J4); cria_pilha(&J42);
     cria_pilha(&J5); cria_pilha(&J52); cria_pilha(&J6); cria_pilha(&J62); cria_pilha(&J7);
@@ -205,7 +203,7 @@ int main (){
     struct node **vetor;
     vetor = malloc(sizeof(struct node*));
     int i;
-    for(i = 0; i < 3; i++){
+    //for(i = 0; i < 3; i++){
   
     recebe_baralho(&E);
     display(E);
